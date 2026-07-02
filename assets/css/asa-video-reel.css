@@ -744,6 +744,28 @@ nav .framer-text,
     line-height: 1.25 !important;
   }
 
+  .framer-8pSqs .framer-12yam3c {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    white-space: normal !important;
+    text-align: center !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+  }
+
+  .framer-8pSqs .framer-12yam3c .framer-text,
+  .framer-8pSqs .framer-12yam3c strong {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: clamp(17px, 4.8vw, 20px) !important;
+    line-height: 1.24 !important;
+    white-space: normal !important;
+    overflow-wrap: normal !important;
+    text-align: center !important;
+  }
+
   .framer-8pSqs .framer-1ttf6yc .framer-text,
   .framer-8pSqs .framer-s1sfxq .framer-text,
   .framer-8pSqs .framer-18gkuz9 .framer-text {
@@ -903,24 +925,64 @@ nav .framer-text,
   .framer-8pSqs .framer-9zrVv.framer-fakn8e {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 18px !important;
-    gap: 14px !important;
-    border-radius: 14px !important;
+    padding: 16px !important;
+    gap: 12px !important;
+    border-radius: 16px !important;
   }
 
   .framer-8pSqs .framer-9zrVv .framer-owq2ne {
     gap: 10px !important;
+    align-items: flex-start !important;
+  }
+
+  .framer-8pSqs .framer-9zrVv .framer-u6k172 {
+    flex: 1 1 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+  }
+
+  .framer-8pSqs .framer-9zrVv .framer-3gk7of {
+    flex: 0 0 94px !important;
+    width: 94px !important;
+    min-width: 94px !important;
+    justify-content: flex-end !important;
   }
 
   .framer-8pSqs .framer-9zrVv .framer-mdvdff {
     width: 100% !important;
+    gap: 10px !important;
   }
 
   .framer-8pSqs .framer-9zrVv .framer-pujnop,
   .framer-8pSqs .framer-9zrVv .framer-16njrmv,
   .framer-8pSqs .framer-9zrVv .framer-xuf2en {
     white-space: normal !important;
-    overflow-wrap: anywhere !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .framer-8pSqs .framer-9zrVv .framer-pujnop .framer-text,
+  .framer-8pSqs .framer-9zrVv .framer-pujnop {
+    font-size: clamp(22px, 6.1vw, 26px) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .framer-8pSqs .framer-9zrVv .framer-16njrmv .framer-text,
+  .framer-8pSqs .framer-9zrVv .framer-16njrmv {
+    width: 94px !important;
+    max-width: 94px !important;
+    font-size: clamp(17px, 4.5vw, 20px) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.025em !important;
+    text-align: right !important;
+    white-space: normal !important;
+  }
+
+  .framer-8pSqs .framer-9zrVv .framer-xuf2en .framer-text,
+  .framer-8pSqs .framer-9zrVv .framer-xuf2en {
+    font-size: clamp(18px, 5.2vw, 22px) !important;
+    line-height: 1.16 !important;
+    letter-spacing: -0.02em !important;
   }
 
   .framer-8pSqs .framer-rku30p,
@@ -961,6 +1023,7 @@ nav .framer-text,
   }
 
   .framer-8pSqs .framer-1wd2kxj,
+  .framer-8pSqs .framer-1wd2kxj > .ssr-variant,
   .framer-8pSqs .framer-1wd2kxj .framer-1hmvdht-container {
     width: 100% !important;
     max-width: 100% !important;
@@ -972,17 +1035,33 @@ nav .framer-text,
     width: 100% !important;
     height: auto !important;
     min-height: 56px !important;
-    padding: 0 7px 0 14px !important;
+    padding: 0 7px 0 12px !important;
+    gap: 8px !important;
   }
 
   .framer-8pSqs .framer-1wd2kxj .framer-mxy7k5 {
     display: none !important;
   }
 
+  .framer-8pSqs .framer-1wd2kxj .framer-nn0txa,
+  .framer-8pSqs .framer-1wd2kxj .framer-1mfkbq1 {
+    min-width: 0 !important;
+    width: 100% !important;
+    flex: 1 1 auto !important;
+    overflow: hidden !important;
+  }
+
   .framer-8pSqs .framer-1wd2kxj .framer-67g6R .framer-text {
-    font-size: 14px !important;
+    font-size: clamp(12px, 3.7vw, 14px) !important;
     line-height: 1.15 !important;
-    white-space: normal !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+  }
+
+  .framer-8pSqs .framer-1wd2kxj .framer-cviwqy {
+    flex: 0 0 48px !important;
+    width: 48px !important;
+    height: 48px !important;
   }
 
   .asa-addon-option {
@@ -1081,6 +1160,117 @@ nav .framer-text,
     padding: 0 16px 22px;
     font-size: 15px;
     line-height: 1.52;
+  }
+
+  .framer-J7FGl .framer-1smqkjj-container,
+  .framer-Texrv.framer-1ptpysr {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 54px 20px 28px !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .framer-Texrv .framer-16efxop,
+  .framer-Texrv .framer-hmc8oi,
+  .framer-Texrv .framer-1s1r57r,
+  .framer-Texrv .framer-obmmpn,
+  .framer-Texrv .framer-1h2ytfr,
+  .framer-Texrv .framer-1knwtml,
+  .framer-Texrv .framer-1xjxq0l,
+  .framer-Texrv .framer-1xvlcse,
+  .framer-Texrv .framer-1tllnxa,
+  .framer-Texrv .framer-ge3q3m {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex: 0 0 auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .framer-Texrv .framer-16efxop {
+    gap: 30px !important;
+    align-items: stretch !important;
+  }
+
+  .framer-Texrv .framer-hmc8oi {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 34px !important;
+  }
+
+  .framer-Texrv .framer-1s1r57r {
+    align-self: auto !important;
+    align-items: flex-start !important;
+    gap: 22px !important;
+    height: auto !important;
+  }
+
+  .framer-Texrv .framer-13db8x6 {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+  }
+
+  .framer-Texrv .framer-obmmpn {
+    gap: 30px !important;
+  }
+
+  .framer-Texrv .framer-1h2ytfr,
+  .framer-Texrv .framer-1knwtml {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 28px !important;
+  }
+
+  .framer-Texrv .framer-15wyg7i,
+  .framer-Texrv .framer-19eqf4l {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .framer-Texrv .framer-rz8d2d,
+  .framer-Texrv .framer-o9sma6,
+  .framer-Texrv .framer-shv6zn,
+  .framer-Texrv .framer-121ubdv,
+  .framer-Texrv .framer-1ryo6g0,
+  .framer-Texrv .framer-zh9ipa {
+    width: 100% !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .framer-Texrv .framer-rz8d2d .framer-text,
+  .framer-Texrv .framer-o9sma6 .framer-text,
+  .framer-Texrv .framer-shv6zn .framer-text {
+    font-size: 20px !important;
+    line-height: 1.15 !important;
+    text-align: left !important;
+  }
+
+  .framer-Texrv .framer-121ubdv .framer-text,
+  .framer-Texrv .framer-1v3cqfv .framer-text {
+    font-size: 17px !important;
+    line-height: 1.2 !important;
+    text-align: left !important;
+  }
+
+  .framer-Texrv .framer-ge3q3m {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+  }
+
+  .framer-Texrv .framer-ge3q3m .framer-text {
+    font-size: 15px !important;
+    line-height: 1.25 !important;
+    text-align: left !important;
   }
 }
 
