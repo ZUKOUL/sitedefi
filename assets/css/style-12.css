@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+@media (pointer: fine) {
+  .framer--carousel[data-show-scrollbar="false"]::-webkit-scrollbar { display: none; appearance: none; width: 0px; height: 0px; }
+  .framer--carousel[data-show-scrollbar="false"]::-webkit-scrollbar-thumb { display: none; }
+  .framer--carousel[data-show-scrollbar="false"] { scrollbar-width: none; }
+}
