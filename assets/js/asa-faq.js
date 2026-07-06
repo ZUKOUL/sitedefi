@@ -70,13 +70,6 @@
 
   const formatPrice = (price) => `${price} €`;
 
-  const findCheckoutMount = () => {
-    const pricing = document.querySelector("#pricing");
-    if (!pricing) return null;
-
-    return pricing.querySelector(".framer-1wd2kxj") || pricing.querySelector(".framer-1kezrdl");
-  };
-
   const getPurchaseLinks = () =>
     Array.from(document.querySelectorAll("a")).filter((link) => {
       const label = link.textContent.replace(/\s+/g, " ").trim();
@@ -87,100 +80,88 @@
     const textNode = link.querySelector(".framer-1mfkbq1 .framer-text");
     if (!textNode) return;
 
-    const isNav = /Accès immédiat/i.test(textNode.textContent);
-    textNode.textContent = isNav
-      ? `Accès immédiat - ${formatPrice(selected ? checkout.basePrice + checkout.addonPrice : checkout.basePrice)}`
-      : `Accéder maintenant - ${formatPrice(selected ? checkout.basePrice + checkout.addonPrice : checkout.basePrice)}`;
+    const current = textNode.textContent;
+    const price = formatPrice(selected ? checkout.basePrice + checkout.addonPrice : checkout.basePrice);
+
+    if (/Accès immédiat/i.test(current)) {
+      textNode.textContent = `Accès immédiat - ${price}`;
+      return;
+    }
+
+    if (/Rejoindre AI Success Academy/i.test(current)) {
+      textNode.textContent = `Rejoindre AI Success Academy - ${price}`;
+      return;
+    }
+
+    textNode.textContent = `Accéder maintenant - ${price}`;
   };
 
   const updatePurchaseLinks = (selected) => {
     const url = selected ? checkout.addonUrl : checkout.baseUrl;
     getPurchaseLinks().forEach((link) => {
-      if (link.closest(".asa-checkout-panel")) return;
       link.href = url;
       link.dataset.asaCheckoutLink = selected ? "with-support" : "base";
       setPurchaseLabel(link, selected);
     });
   };
 
-  const buildCheckout = () => {
-    const panel = document.createElement("section");
-    panel.className = "asa-checkout-panel";
-    panel.dataset.asaCheckout = "true";
-    panel.innerHTML = `
-      <div class="asa-checkout-heading">
-        <p>Finaliser l'inscription</p>
-        <span>Accès immédiat après paiement</span>
-      </div>
+  let addonSelected = false;
 
-      <div class="asa-checkout-choice asa-checkout-choice-base is-selected" aria-disabled="true">
-        <span class="asa-checkout-check" aria-hidden="true"></span>
-        <span class="asa-checkout-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M5 5.8c0-.99.81-1.8 1.8-1.8h10.4c.99 0 1.8.81 1.8 1.8v12.4c0 .99-.81 1.8-1.8 1.8H6.8A1.8 1.8 0 0 1 5 18.2V5.8Z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
-        </span>
-        <span class="asa-checkout-main">
-          <span class="asa-checkout-kicker">Inclus</span>
-          <strong>Programme complet</strong>
-        </span>
-        <strong class="asa-checkout-price">${formatPrice(checkout.basePrice)}</strong>
-      </div>
+  const setAddonSelected = (selected) => {
+    addonSelected = selected;
+    updatePurchaseLinks(addonSelected);
 
-      <button class="asa-checkout-choice asa-checkout-choice-addon" type="button" aria-pressed="false">
-        <span class="asa-checkout-check" aria-hidden="true"></span>
-        <span class="asa-checkout-main">
-          <strong>Je veux être accompagné</strong>
-          <span class="asa-checkout-list">
-            <span>Retour personnalisé</span>
-            <span>Support par message</span>
-            <span>Plan d'action plus clair</span>
-          </span>
-        </span>
-        <strong class="asa-checkout-price">+${formatPrice(checkout.addonPrice)}</strong>
-      </button>
+    document.querySelectorAll(".asa-cta-addon").forEach((button) => {
+      button.classList.toggle("is-selected", addonSelected);
+      button.setAttribute("aria-pressed", String(addonSelected));
 
-      <div class="asa-checkout-summary">
-        <div class="asa-checkout-total-row">
-          <span>Total</span>
-          <strong data-asa-checkout-total>${formatPrice(checkout.basePrice)}</strong>
-        </div>
-        <a class="asa-checkout-submit" href="${checkout.baseUrl}" data-asa-checkout-submit>
-          <span>Accéder maintenant</span>
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
+      const total = button.querySelector("[data-asa-addon-total]");
+      if (total) {
+        total.textContent = `Total ${formatPrice(
+          addonSelected ? checkout.basePrice + checkout.addonPrice : checkout.basePrice
+        )}`;
+      }
+    });
+  };
 
-      <p class="asa-checkout-safe">Paiement sécurisé · Accès immédiat</p>
+  const buildAddonToggle = () => {
+    const wrap = document.createElement("div");
+    wrap.className = "asa-cta-addon-wrap";
+
+    const button = document.createElement("button");
+    button.className = "asa-cta-addon";
+    button.type = "button";
+    button.setAttribute("aria-pressed", "false");
+    button.innerHTML = `
+      <span class="asa-cta-addon-box" aria-hidden="true"></span>
+      <span class="asa-cta-addon-copy">
+        <strong>Ajouter l'accompagnement</strong>
+        <span>Optionnel · +${formatPrice(checkout.addonPrice)}</span>
+      </span>
+      <span class="asa-cta-addon-total" data-asa-addon-total>Total ${formatPrice(checkout.basePrice)}</span>
     `;
 
-    const addon = panel.querySelector(".asa-checkout-choice-addon");
-    const total = panel.querySelector("[data-asa-checkout-total]");
-    const submit = panel.querySelector("[data-asa-checkout-submit]");
-
-    const setSelected = (selected) => {
-      addon.classList.toggle("is-selected", selected);
-      addon.setAttribute("aria-pressed", String(selected));
-      total.textContent = formatPrice(selected ? checkout.basePrice + checkout.addonPrice : checkout.basePrice);
-      submit.href = selected ? checkout.addonUrl : checkout.baseUrl;
-      submit.dataset.asaCheckoutLink = selected ? "with-support" : "base";
-      updatePurchaseLinks(selected);
-    };
-
-    addon.addEventListener("click", () => setSelected(!addon.classList.contains("is-selected")));
-    setSelected(false);
-
-    return panel;
+    button.addEventListener("click", () => setAddonSelected(!addonSelected));
+    wrap.append(button);
+    return wrap;
   };
 
   const mountCheckout = () => {
-    if (document.querySelector("[data-asa-checkout='true']")) return;
+    document
+      .querySelectorAll(".asa-addon-option, .asa-checkout-panel, .asa-cta-addon-wrap")
+      .forEach((node) => node.remove());
 
-    document.querySelectorAll(".asa-addon-option").forEach((node) => node.remove());
+    const targets = getPurchaseLinks()
+      .filter((link) => !link.closest("nav"))
+      .map((link) => link.closest('[class*="-container"]') || link)
+      .filter((target, index, list) => target && list.indexOf(target) === index);
 
-    const mount = findCheckoutMount();
-    if (!mount) return;
+    targets.forEach((target) => {
+      target.parentElement?.classList.add("asa-cta-addon-host");
+      target.insertAdjacentElement("afterend", buildAddonToggle());
+    });
 
-    const panel = buildCheckout();
-    mount.insertAdjacentElement("afterend", panel);
+    setAddonSelected(false);
   };
 
   const getFaqMounts = () => {
