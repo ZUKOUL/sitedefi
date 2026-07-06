@@ -168,20 +168,20 @@ nav .framer-text,
   top: 0;
   bottom: 0;
   z-index: 4;
-  width: clamp(130px, 13vw, 250px);
+  width: clamp(300px, 24vw, 430px);
   pointer-events: none;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .asa-video-reel::before {
-  left: 0;
-  background: linear-gradient(90deg, rgba(9, 9, 10, .94) 0%, rgba(9, 9, 10, .68) 38%, rgba(9, 9, 10, 0) 100%);
+  left: clamp(-190px, -11vw, -130px);
+  background: linear-gradient(90deg, rgba(9, 9, 10, .97) 0%, rgba(9, 9, 10, .82) 28%, rgba(9, 9, 10, .28) 68%, rgba(9, 9, 10, 0) 100%);
 }
 
 .asa-video-reel::after {
-  right: 0;
-  background: linear-gradient(270deg, rgba(9, 9, 10, .94) 0%, rgba(9, 9, 10, .68) 38%, rgba(9, 9, 10, 0) 100%);
+  right: clamp(-190px, -11vw, -130px);
+  background: linear-gradient(270deg, rgba(9, 9, 10, .97) 0%, rgba(9, 9, 10, .82) 28%, rgba(9, 9, 10, .28) 68%, rgba(9, 9, 10, 0) 100%);
 }
 
 .asa-video-track {
@@ -191,7 +191,7 @@ nav .framer-text,
   display: flex;
   align-items: center;
   gap: clamp(24px, 2.35vw, 42px);
-  padding: 0 clamp(72px, 9vw, 150px);
+  padding: 0 clamp(170px, 16vw, 280px);
   animation: asa-video-marquee 82s linear infinite;
   will-change: transform;
 }
@@ -1021,14 +1021,22 @@ button.asa-checkout-choice:focus-visible,
 
   .asa-video-reel::before,
   .asa-video-reel::after {
-    width: 48px;
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+    width: 118px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+
+  .asa-video-reel::before {
+    left: -68px;
+  }
+
+  .asa-video-reel::after {
+    right: -68px;
   }
 
   .asa-video-track {
     gap: 15px;
-    padding: 0 max(22px, calc((100vw - 148px) / 2));
+    padding: 0 max(82px, calc((100vw - 148px) / 2 + 54px));
     animation-duration: 58s;
   }
 
