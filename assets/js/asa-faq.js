@@ -41,7 +41,7 @@
         "Tu repars avec un avatar IA, une niche clarifiée, une idée de produit digital, une page de vente, des scripts de vidéos courtes, un plan de publication et une méthode simple pour améliorer ce qui fonctionne.",
     },
     {
-      question: "À quoi sert l’accompagnement à 47 € ?",
+      question: "À quoi sert l’accompagnement à 43 € ?",
       answer:
         "C’est l’option pour avancer avec moins de flou. Elle sert à t’aider à prendre les bonnes décisions plus vite sur ta niche, ton avatar, ton angle, ton offre et tes premiers contenus. La formation seule permet déjà d’avancer ; l’accompagnement ajoute surtout du cadrage et de la clarté.",
     },
@@ -59,6 +59,128 @@
     }
 
     callback();
+  };
+
+  const checkout = {
+    basePrice: 97,
+    addonPrice: 43,
+    baseUrl: "#checkout-programme-97",
+    addonUrl: "#checkout-programme-accompagnement-140",
+  };
+
+  const formatPrice = (price) => `${price} €`;
+
+  const findCheckoutMount = () => {
+    const pricing = document.querySelector("#pricing");
+    if (!pricing) return null;
+
+    return pricing.querySelector(".framer-1wd2kxj") || pricing.querySelector(".framer-1kezrdl");
+  };
+
+  const getPurchaseLinks = () =>
+    Array.from(document.querySelectorAll("a")).filter((link) => {
+      const label = link.textContent.replace(/\s+/g, " ").trim();
+      return /Accès immédiat|Rejoindre AI Success Academy|Accéder maintenant/i.test(label);
+    });
+
+  const setPurchaseLabel = (link, selected) => {
+    const textNode = link.querySelector(".framer-1mfkbq1 .framer-text");
+    if (!textNode) return;
+
+    const isNav = /Accès immédiat/i.test(textNode.textContent);
+    textNode.textContent = isNav
+      ? `Accès immédiat - ${formatPrice(selected ? checkout.basePrice + checkout.addonPrice : checkout.basePrice)}`
+      : `Accéder maintenant - ${formatPrice(selected ? checkout.basePrice + checkout.addonPrice : checkout.basePrice)}`;
+  };
+
+  const updatePurchaseLinks = (selected) => {
+    const url = selected ? checkout.addonUrl : checkout.baseUrl;
+    getPurchaseLinks().forEach((link) => {
+      if (link.closest(".asa-checkout-panel")) return;
+      link.href = url;
+      link.dataset.asaCheckoutLink = selected ? "with-support" : "base";
+      setPurchaseLabel(link, selected);
+    });
+  };
+
+  const buildCheckout = () => {
+    const panel = document.createElement("section");
+    panel.className = "asa-checkout-panel";
+    panel.dataset.asaCheckout = "true";
+    panel.innerHTML = `
+      <div class="asa-checkout-heading">
+        <p>Finaliser l'inscription</p>
+        <span>Accès immédiat après paiement</span>
+      </div>
+
+      <div class="asa-checkout-choice asa-checkout-choice-base is-selected" aria-disabled="true">
+        <span class="asa-checkout-check" aria-hidden="true"></span>
+        <span class="asa-checkout-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 5.8c0-.99.81-1.8 1.8-1.8h10.4c.99 0 1.8.81 1.8 1.8v12.4c0 .99-.81 1.8-1.8 1.8H6.8A1.8 1.8 0 0 1 5 18.2V5.8Z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+        </span>
+        <span class="asa-checkout-main">
+          <span class="asa-checkout-kicker">Inclus</span>
+          <strong>Programme complet</strong>
+        </span>
+        <strong class="asa-checkout-price">${formatPrice(checkout.basePrice)}</strong>
+      </div>
+
+      <button class="asa-checkout-choice asa-checkout-choice-addon" type="button" aria-pressed="false">
+        <span class="asa-checkout-check" aria-hidden="true"></span>
+        <span class="asa-checkout-main">
+          <strong>Je veux être accompagné</strong>
+          <span class="asa-checkout-list">
+            <span>Retour personnalisé</span>
+            <span>Support par message</span>
+            <span>Plan d'action plus clair</span>
+          </span>
+        </span>
+        <strong class="asa-checkout-price">+${formatPrice(checkout.addonPrice)}</strong>
+      </button>
+
+      <div class="asa-checkout-summary">
+        <div class="asa-checkout-total-row">
+          <span>Total</span>
+          <strong data-asa-checkout-total>${formatPrice(checkout.basePrice)}</strong>
+        </div>
+        <a class="asa-checkout-submit" href="${checkout.baseUrl}" data-asa-checkout-submit>
+          <span>Accéder maintenant</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <p class="asa-checkout-safe">Paiement sécurisé · Accès immédiat</p>
+    `;
+
+    const addon = panel.querySelector(".asa-checkout-choice-addon");
+    const total = panel.querySelector("[data-asa-checkout-total]");
+    const submit = panel.querySelector("[data-asa-checkout-submit]");
+
+    const setSelected = (selected) => {
+      addon.classList.toggle("is-selected", selected);
+      addon.setAttribute("aria-pressed", String(selected));
+      total.textContent = formatPrice(selected ? checkout.basePrice + checkout.addonPrice : checkout.basePrice);
+      submit.href = selected ? checkout.addonUrl : checkout.baseUrl;
+      submit.dataset.asaCheckoutLink = selected ? "with-support" : "base";
+      updatePurchaseLinks(selected);
+    };
+
+    addon.addEventListener("click", () => setSelected(!addon.classList.contains("is-selected")));
+    setSelected(false);
+
+    return panel;
+  };
+
+  const mountCheckout = () => {
+    if (document.querySelector("[data-asa-checkout='true']")) return;
+
+    document.querySelectorAll(".asa-addon-option").forEach((node) => node.remove());
+
+    const mount = findCheckoutMount();
+    if (!mount) return;
+
+    const panel = buildCheckout();
+    mount.insertAdjacentElement("afterend", panel);
   };
 
   const getFaqMounts = () => {
@@ -131,6 +253,8 @@
   };
 
   onReady(() => {
+    mountCheckout();
+
     const mounts = getFaqMounts();
     if (!mounts.length) return;
 
